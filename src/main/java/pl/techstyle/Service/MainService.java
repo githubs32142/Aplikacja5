@@ -1,5 +1,7 @@
 package pl.techstyle.Service;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,11 @@ public class MainService {
 	}
 	
 	public void deletePerson(int id) {
-		person.remove(id);
+	Person p=person.stream().filter((t)->{
+			return t.getId()==id;
+		} ).findFirst()
+		.get();
+		person.remove(p);
 	}
 	
 	public List<Person> getAll(){
